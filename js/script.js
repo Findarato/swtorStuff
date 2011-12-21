@@ -36,7 +36,7 @@ swtor = {
 						userDisplay.find("#title").attr("id","title"+data.name).html(
 							$("<div/>")
 								.html(
-									$("<a/>",{"html":data.name,"href":"/swtorStuff/"+data.name})
+									$("<a/>",{"class":"fakelink","html":data.name,"href":"/swtorStuff/#"+data.name})
 								)
 						)
 						
@@ -72,21 +72,30 @@ swtor = {
 
 					Tlb.append(display);
 			});	
-	},"test":"cool"
+	}
 };
 
 swtor.loadAllServers();
 //admin.loadAllUsers()
 
-window.onpopstate = function(event) { 
-  //alert("location: " + document.location + ", state: " + JSON.stringify(event.state)); 
-  alert("pop")
-  if($(".fakeDropDown")){$(".fakeDropDown").replaceWith();} 
+function checkHash(){
+	hash = window.location.hash;
+	//alert(hash);
+}
+
+
+window.onpopstate = function(event) {
+	//alert("location: " + document.location + ", state: " + JSON.stringify(event.state));
+	checkHash(); 
 };
 
+jQuery(document).ready(function () {
+	
+	$(".fakelink").live(function(){
+		return false;
+	});
 
-
-
+});
 
 
 
