@@ -23,7 +23,17 @@
 		<div id="container">
 			<header></header>
 			<div id="main" role="main" style="padding:5px;">
-				Stuff will go here <div id=statusTable></div>
+				<div style="height:300px;width:1000px;">
+					<div style="position:relative;">
+							<div style="position:absolute;top:25px;left:36px;background-color:rgba(255,78,78,.3);width:940px;height:50px">&nbsp;</div>
+							<div style="position:absolute;top:75px;left:36px;background-color:rgba(255,78,78,.3);width:940px;height:50px">&nbsp;</div>
+							<div style="position:absolute;top:125px;left:36px;background-color:rgba(255,165,69,.3);width:940px;height:50px">&nbsp;</div>
+							<div style="position:absolute;top:175px;left:36px;background-color:rgba(247,245,90,.3);width:940px;height:50px">&nbsp;</div>
+							<div style="position:absolute;top:225px;left:36px;background-color:rgba(99,245,120,.3);width:940px;height:50px">&nbsp;</div>
+						<canvas style="position:absolute;top:0px;left:0px;" id=graph width=1000px height=300px></canvas>
+					</div>
+				</div>
+				<div id=statusTable></div>
 			</div>
 			<footer></footer>
 		</div>
