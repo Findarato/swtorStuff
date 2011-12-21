@@ -1,0 +1,210 @@
+*{
+	-moz-transition: top 1s, right 1s, left 1s,width 1s, bottom 1s, height 1s, all 1s linear;
+	-moz-transition: all 1s ease;
+    -o-transition: top 1s, right 1s, left 1s,width 1s, bottom 1s, height 1s linear;
+    -webkit-transition: top 1s, right 1s, left 1s,width 1s, bottom 1s, height 1s linear;
+    transition: top 1s, right 1s, left 1s,width 1s, bottom 1s, height 1s linear;
+    
+    -webkit-transition: all 500ms cubic-bezier(0.600, 0, 0.735, 0.045); /* older webkit */
+	-webkit-transition: all 500ms cubic-bezier(0.600, -0.280, 0.735, 0.045);
+	-moz-transition: all 500ms cubic-bezier(0.600, -0.280, 0.735, 0.045);
+    -ms-transition: all 500ms cubic-bezier(0.600, -0.280, 0.735, 0.045);
+	-o-transition: all 500ms cubic-bezier(0.600, -0.280, 0.735, 0.045);
+	transition: all 500ms cubic-bezier(0.600, -0.280, 0.735, 0.045); /* easeInBack */
+	
+	-moz-transition: background-position 0s linear;
+    -o-transition: background-position 0s linear;
+    -webkit-transition: background-position 0s linear;
+    transition: background-position 0s linear;
+    
+}
+a {text-decoration: none;}
+a:hover {text-decoration: bold;color:#0087D5}
+
+/* Utility */
+.tr {display: table-row}
+.t {display: table}
+.td {display: table-cell;vertical-align: top;}
+.textLeft {text-align: left}
+.textRight {text-align: right}
+.ilb {display: inline-block}
+.ticketAbsolute{position:absolute;}
+.ticketPadding3{padding:3px;}
+.fontBold{font-weight: bold;}
+.font-italic{font-style: italic;}
+.fake-link{cursor: pointer;}
+.ticketLeft{float:left;}
+.ticketRight{float:right;}
+
+/* New ticket image sprite*/
+.ticket_button {
+    height: 16px;
+    padding: 0 0 0 19px;
+}
+.ticket_button_right {
+    padding: 0 19px 0 0
+}
+.box_transition,input {
+    -moz-transition: all .5s ease-out;
+    -o-transition: all .5s ease-in;
+    -webkit-transition: all .5s ease-out;
+}
+.small-shadow-black-1 {
+    box-shadow: 2px 2px 5px rgba(0,0,0,.60);
+    -webkit-box-shadow: 2px 2px 5px rgba(0,0,0,.60);
+    -moz-box-shadow: 2px 2px 5px rgba(0,0,0,.60);
+}
+.fuzzyoutline ,input:focus {
+    box-shadow: 0 0 6px rgba(255,0,0,1);
+    -webkit-box-shadow: 0 0 6px rgba(255,0,0,1);
+    -moz-box-shadow: 0 0 6px rgba(255,0,0,1);
+    -moz-transition: all 0.3s;
+    /* FF3.7+ */: ;
+    -o-transition: all 0.3s;
+    /* Opera 10.5 */: ;
+    -webkit-transition: all 0.3s;
+}
+
+ul li,ol li {padding-left: 5px}
+.transformTopLeft {
+    transform-origin: 0 0;
+    -moz-transform-origin: top left;
+    -o-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+}
+.rotate45 {
+    transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+.rotate90 {
+    transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+}
+.rotate180 {
+    transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+.insideBorder{
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.topMenuItem {
+	margin:0 4px 0 4px;
+	height:15px;
+	width:auto;
+	overflow:hidden;
+	white-space:nowrap;
+	vertical-align: top;
+}
+.tab > a{
+	width:auto;
+}
+
+
+#ticketLoginNewBox{
+	position: absolute;
+	top:150px;
+	left:100%;
+	margin-left:-41%;
+	width:40%;
+}
+.ticketBox{
+	max-height:400px;
+	width:99%;
+	padding:5px 0 0 5px;
+	margin:3px;
+	position:relative;
+	display:block;
+}
+.ticketUserIconBox{
+	height:32px;
+	width:32px;
+	background-image:url(http://www.gravatar.com/avatar/{hash}?s=32&d=identicon&r=g);
+	display:none;
+}
+
+.ticketIdBox,.ticketPriorityBox{
+	height:15px;
+	width:32px;
+	margin-top:0px;
+	text-align:center;
+	font-size:11px;
+	padding-top:2px;
+	display:inline-block;
+	vertical-align:top;
+}
+.ticketPriorityBox{
+	margin-left:3px;
+	overflow:hidden;
+	padding:0px;
+}
+
+
+.ticketIdBox{
+	padding:0px;
+}
+.ticketTitleBox{
+	padding-left:7px;
+	display:inline-block;
+	height:22px;
+	width:45%;
+	overflow:hidden;
+	white-space:nowrap;
+	vertical-align:top;
+}
+.ticketBodyBox{
+	display:inline-block;
+	width:0px;
+	height:0px;
+	overflow:hidden;
+	padding-left:7px;
+	white-space:nowrap;
+}
+.ticketCreatedOnBox,.ticketCreatedByBox,.ticketCategoryBox,.ticketLocationBox{
+	bottom:0px;
+	text-align:right;
+	font-size:11px;
+	width:14%;
+	max-width:100px;
+	height:100%;
+	padding:1px 3px;
+	float:right;
+	display:inline-block;
+	white-space:nowrap;
+	vertical-align: top;
+	line-height:18px;
+	overflow:hidden;
+}
+.ticketCreatedByBox,.ticketCategoryBox,.ticketLocationBox{
+	border-right:none;
+	padding-right:5px;
+}
+.ticketCategoryBox,.ticketLocationBox{
+	text-align:left;
+	padding-left:5px;
+}
+.ticketCreatedOnBox{
+	margin-right:5px;
+}
+.ticketBookmarkBox{
+	top:0;
+	right:0;
+	padding:1px;
+	overflow:hidden;
+	display:inline-block;
+	position: relative;
+}
+.ticketItem{
+	width:100%;
+	display:block;
+	height:22px;
+	overflow:hidden;
+}
