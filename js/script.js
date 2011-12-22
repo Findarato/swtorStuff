@@ -2,6 +2,7 @@
 
 */
 var Priority_string = {
+	0:{"id":0,"name":"Down"},
 	1:{"id":1,"name":"Light"},
 	2:{"id":2,"name":"Standard"},
 	3:{"id":3,"name":"Heavy"},
@@ -41,18 +42,18 @@ swtor = {
 						)
 						
 						tempHolder = newPermissionTpl.clone();
-						tempHolder.css("width","20px").attr("id",data.name+"_Perm"+data.status).removeClass("roundBottomRight4").addClass("roundBottomRight8").html(
+						tempHolder.css("width","50px").attr("id",data.name+"_Perm"+data.status).removeClass("roundBottomRight4").addClass("roundBottomRight8").html(
 							data.status
 						);
 						userDisplay.find("#userDisplay").append(tempHolder)
 						tempHolder = newPermissionTpl.clone();
 						//alert(data.population)
-						tempHolder.css("width","auto").removeClass("roundBottomRight4").html(data.population);
+						tempHolder.css("width","50px").removeClass("roundBottomRight4").html(data.population);
 						tempHolder = newPermissionTpl.clone();
-						tempHolder.css("width","auto").removeClass("roundBottomRight4").html(data.type);
+						tempHolder.css("width","50px").removeClass("roundBottomRight4").html(data.type);
 						userDisplay.find("#userDisplay").append(tempHolder)
 						tempHolder = newPermissionTpl.clone();
-						tempHolder.css("width","auto").removeClass("roundBottomRight4").html(data.timezone);
+						tempHolder.css("width","50px").removeClass("roundBottomRight4").html(data.timezone);
 						userDisplay.find("#userDisplay").append(tempHolder)
 						/*
 						tempHolder = newPermissionTpl.clone();
