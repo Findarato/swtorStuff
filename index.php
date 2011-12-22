@@ -26,11 +26,11 @@
 
 				<div style="height:300px;width:1000px;">
 					<div style="position:relative;">
-						<div class="pFull" style="position:absolute;top:25px;left:36px;opacity:.3;width:940px;height:50px">&nbsp;</div>
-						<div class="pVeryHeavy" style="position:absolute;top:75px;left:36px;opacity:.3;width:940px;height:50px">&nbsp;</div>
-						<div class="pHeavy" style="position:absolute;top:125px;left:36px;opacity:.3;width:940px;height:50px">&nbsp;</div>
-						<div class="pStandard" style="position:absolute;top:175px;left:36px;opacity:.3;width:940px;height:50px">&nbsp;</div>
-						<div class="pLight" style="position:absolute;top:225px;left:36px;opacity:.3;width:940px;height:50px">&nbsp;</div>
+						<div class="pFull" style="position:absolute;top:25px;left:36px;opacity:.2;width:940px;height:50px;font-size:20px">Full</div>
+						<div class="pVeryHeavy" style="position:absolute;top:75px;left:36px;opacity:.2;width:940px;height:50px;font-size:20px">Very High</div>
+						<div class="pHeavy" style="position:absolute;top:125px;left:36px;opacity:.2;width:940px;height:50px;font-size:20px">High</div>
+						<div class="pStandard" style="position:absolute;top:175px;left:36px;opacity:.2;width:940px;height:50px;font-size:20px">Normal;</div>
+						<div class="pLight" style="position:absolute;top:225px;left:36px;opacity:.2;width:940px;height:50px;font-size:20px">Low</div>
 						<canvas style="position:absolute;top:0px;left:0px;" id=graph width=1000px height=300px></canvas>
 					</div>
 				</div>

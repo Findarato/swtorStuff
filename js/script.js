@@ -111,7 +111,7 @@ function checkHash(){
 					}
 				})
 			}else{
-				key = hash[0];
+				key = [hash[0]];
 				$.each(data,function(k,item){
 					values[k] = item.pop;
 					lable[k] = item.hour;
@@ -120,7 +120,7 @@ function checkHash(){
 		    var line1 = new RGraph.Line('graph', values);
 		    line1.Set('chart.key',key);
             line1.Set('chart.background.grid', true);
-            line1.Set('chart.linewidth', 5);
+            line1.Set('chart.linewidth', 2);
             line1.Set('chart.gutter.left', 35);
             line1.Set('chart.ymin', 0);
             line1.Set('chart.ymax', 5);
