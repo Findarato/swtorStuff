@@ -1,24 +1,30 @@
 <?php
 	include_once("db.class.php");  
 	date_default_timezone_set( 'America/Chicago' );
-	$db = db::getInstance();
-	$url = "http://www.swtor.com/server-status";
-	$doc = new DOMDocument();
-	@$doc->loadHTMLFile($url);
-	$record = $doc->getElementsByTagName('div');
 
 	function defaultAction(){
 		$db = db::getInstance();
 		$servers = $db->Query("SELECT name,type,timezone from serverStatus group by name;",false,"assoc_array");
 		foreach ($servers as $k=>$s){
 			$sql = "INSERT INTO serverStatus VALUES(NOW(),'DOWN','".$s["name"]."','0','".$s["type"]."','".$s["timezone"]."');";
-			echo $sql."<br/>";
-			$db->Query($sql);
+			//echo $sql."<br/>";
+			//$db->Query($sql);
+			echo "d";
 		}
 	}
-	if (!is_null($record)) { // You have a page that works
-		foreach ($record as $r) {
-			if($r->attributes->getNamedItem("data-status")){
+
+	$db = db::getInstance();
+	$url = "http://www.swtor.com/server-status";
+	$file = file($url);
+	//print_r($file);
+	$site = join("",$file);
+	$doc = new DOMDocument();
+	@$doc->loadHTML($site);
+	$records = $doc->getElementsByTagName('div');
+	echo $records->length;
+	if (!is_null($records)) { // You have a page that works
+		foreach ($records as $r) {
+			if($r->attributes->getNamedItem("data-status")){ // I can not find the status lets do something
 				$status = $r->attributes->getNamedItem("data-status")->nodeValue;
 				$name = $db->Clean($r->attributes->getNamedItem("data-name")->nodeValue);
 				$pop = $r->attributes->getNamedItem("data-population")->nodeValue;
@@ -32,8 +38,8 @@
 				}
 				$db->Query("INSERT INTO serverStatus VALUES(NOW(),'".$status."','".$name."','".$pop."','".$type."','".$location."');");
 				echo $db->Lastsql."<br/>";
-			}else{
-				defaultAction();
+			}else{ // this is what we should do if the data-status attribute is missing
+				//defaultAction();return;exit();die();
 			}
 		}
 	}else{ // something went wrong and lets account for it

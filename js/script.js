@@ -88,15 +88,37 @@ function setHash(htbs) {
 function checkHash(){
 	hash = hash = jQuery.makeArray(getHash().split("\/"));
 	hash[0] = hash[0].replace("#","")
+	if(hash[0] == "")hash[0]="type";
 	$.getJSON("ajax/getData.php",{"name":hash[0]},function(data){
 			var values = new Array();
 			var lable = new Array();
-			$.each(data,function(k,item){
-				values[k] = item.pop;
-				lable[k] = item.hour;
-			})
-		
+			var key = "";
+			if(hash[0] == "type"){
+				var cnt = 0;
+				var cnt2 = 0;
+				key = [];
+				values = [[0,1],[0,2],[0,3],[0,4],[0,5]];
+				lable = data.hours;
+				$.each(data,function(k,item){
+					if(k!="hours"){
+						cnt2 = 0;
+						key[cnt] = k;
+						$.each(item,function(k2,item2){
+							values[cnt][cnt2] = item2.pop;
+							cnt2++;
+						});
+						cnt++;
+					}
+				})
+			}else{
+				key = hash[0];
+				$.each(data,function(k,item){
+					values[k] = item.pop;
+					lable[k] = item.hour;
+				})	
+			}
 		    var line1 = new RGraph.Line('graph', values);
+		    line1.Set('chart.key',key);
             line1.Set('chart.background.grid', true);
             line1.Set('chart.linewidth', 5);
             line1.Set('chart.gutter.left', 35);
@@ -109,7 +131,7 @@ function checkHash(){
             }
             line1.Set('chart.tickmarks', null);
             line1.Set('chart.units.post', '');
-            line1.Set('chart.colors', ['red', 'green']);
+            line1.Set('chart.colors', ['red', 'green','blue', 'black']);
             line1.Set('chart.background.grid.autofit', true);
             line1.Set('chart.background.grid.autofit.numhlines', 10);
             line1.Set('chart.curvy', true);
@@ -123,10 +145,6 @@ function checkHash(){
             } else {
                 RGraph.Effects.Line.jQuery.Trace(line1);
             }
-		
-		
-		
-		
 	});
 
 	if(hash[1]){
