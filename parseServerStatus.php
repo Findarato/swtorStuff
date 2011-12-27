@@ -17,6 +17,9 @@
 	$site = join("",$file);
 	$doc = new DOMDocument();
 	@$doc->loadHTML($site);
+	if(!$doc){
+		defaultAction();die("no doc");
+	}
 	$records = $doc->getElementsByTagName('div');
 	echo $records->length;
 	if (!is_null($records)) { // You have a page that works

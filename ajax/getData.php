@@ -3,9 +3,25 @@
 	$db = db::getInstance();
 	header('Content-type: application/json');
 	date_default_timezone_set( 'America/Chicago' );
+	
+	function array_implode($arrays, &$target = array()) {
+		if(is_array($arrays)){
+		    foreach ($arrays as $item) {
+		        if (is_array($item)) {
+		            array_implode($item, $target);
+		        } else {
+		            $target[] = $item;
+		        }
+		    }
+    	return $target;
+		}else {return false;}
+	}
+	
+	
+	
 	$status = "broke";
 	$_GET = $db->Clean($_GET);
-	$servers = $db->Query("SELECT id,name,type,timezone FROM server;",false,"assoc_array");
+	$servers = $db->Query("SELECT id,name,type,timezone FROM server;",true,"assoc_array");
 	if(isset($_GET["display"]) && $_GET["display"]=="init"){
 		$count = $db->Query("SELECT COUNT(name) FROM server;",false,"row");
 		$status = $db->Query("SELECT s.dt,s.status,s.server_id,s.population,ser.name,ser.type,ser.timezone FROM status AS s JOIN server AS ser ON(s.server_id=ser.id) ORDER BY s.dt DESC, s.server_id ASC LIMIT ".$count.";",false,"assoc_array");
@@ -17,7 +33,8 @@
 				$status = array();
 				$hours = array();
 				foreach ($types as $t){
-					$sql = "SELECT avg( population ) as pop ,hour( dt ) as hour FROM status WHERE type='".$t."' AND (DAY(dt) = '".date("j")."' AND MONTH(dt) = '".date("m")."' AND YEAR(dt) = '".date("Y")."') GROUP BY  hour( dt ) ORDER BY server_id;";
+					$ids = array_implode($db->Query("SELECT id FROM server WHERE type='".$t."'",true,"row"));
+					$sql = "SELECT avg( population ) as pop ,hour( dt ) as hour FROM status WHERE (DAY(dt) = '".date("j")."' AND MONTH(dt) = '".date("m")."' AND YEAR(dt) = '".date("Y")."') AND server_id IN(".join(",",$ids).") GROUP BY  hour( dt ) ORDER BY dt;";
 					$status[$t] = $db->Query($sql,false,"assoc_array");
 				}
 				foreach ($status["PvE"] as $st){

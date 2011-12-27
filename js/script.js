@@ -10,7 +10,7 @@ var Priority_string = {
 	5:{"id":5,"name":"Full"}
  }
 var newUserTpl = 
-	$("<div/>",{"class":"ticketBox insideBorder roundAll4 border-all-Main-1 newTicketTpl"})
+	$("<div/>",{"class":"ticketBox insideBorder roundAll4 border-all-Main-1 newTicketTpl WhitetoLightOff"})
 		.html(
 			$("<div/>",{id:"userDisplay","class":"ticketItem"})
 				.append( // Ticket Priority
@@ -27,7 +27,7 @@ swtor = {
 	"loadAllServers":function(){
 			Tlb = $("#statusTable");
 			$.getJSON("ajax/getData.php",{"display":"init"},function(json){
-				Tlb.append(json[0]["dt"])
+				$("#generatedTime").html(json[0]["dt"]);
 				var display = $("<div/>");
 				$.each(json,function(i,data){
 					
@@ -55,17 +55,11 @@ swtor = {
 						tempHolder = newPermissionTpl.clone();
 						tempHolder.css("width","50px").removeClass("roundBottomRight4").html(data.timezone);
 						userDisplay.find("#userDisplay").append(tempHolder)
-						/*
-						tempHolder = newPermissionTpl.clone();
-						tempHolder.css("width","auto").removeClass("roundBottomRight4").html(data.dt);
-						userDisplay.find("#userDisplay").append(tempHolder)
-						*/
 						userDisplay.find("#ticketPriority").attr("id","ticketPriority-"+data.name).html(
 				    		function(i,html){
-				     			if(data.population>0){
-				       				if(data.population>5){data.population = data.population-5;}
+				     			//if(data.population>0){
 				       				result = $("<div/>",{"title":Priority_string[data.population].name}).addClass("pSquare p"+Priority_string[data.population].name.replace(" ",""));
-								}else{result = Priority_string[0].name;}
+								//}
 								return result;
 				    		})							
 						
@@ -119,7 +113,7 @@ function checkHash(){
 			}
 		    var line1 = new RGraph.Line('graph', values);
 		    line1.Set('chart.key',key);
-            line1.Set('chart.background.grid', true);
+            line1.Set('chart.background.grid', false);
             line1.Set('chart.linewidth', 2);
             line1.Set('chart.gutter.left', 35);
             line1.Set('chart.ymin', 0);
@@ -131,7 +125,8 @@ function checkHash(){
             }
             line1.Set('chart.tickmarks', null);
             line1.Set('chart.units.post', '');
-            line1.Set('chart.colors', ['red', 'green','blue', 'black']);
+            line1.Set('chart.text.color',"white");
+            line1.Set('chart.colors', ['#FBB50D', 'green','blue', 'black']);
             line1.Set('chart.background.grid.autofit', true);
             line1.Set('chart.background.grid.autofit.numhlines', 10);
             line1.Set('chart.curvy', true);
@@ -154,9 +149,7 @@ function checkHash(){
 	//alert(hash);
 }
 
-
 window.onpopstate = function(event) {
-	//alert("location: " + document.location + ", state: " + JSON.stringify(event.state));
 	checkHash(); 
 }
 
