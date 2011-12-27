@@ -27,9 +27,23 @@ swtor = {
 	"loadAllServers":function(){
 			Tlb = $("#statusTable");
 			$.getJSON("ajax/getData.php",{"display":"init"},function(json){
-				$("#generatedTime").html(json[0]["dt"]);
+				
+				var pie = new RGraph.Pie('upServers', [json.serverUp,json.serverCount-json.serverUp]);
+				
+		
+		        // Configure the chart to look as you want.
+		        pie.Set('chart.labels', ['Up', 'Down']);
+		        pie.Set('chart.title', "2");
+		        pie.Set('chart.stroke','black')
+		        pie.Set('chart.colors',['#25A2C3','#111111'])
+		        pie.Set('chart.text.color',"#FBB50D")
+		        // Call the .Draw() chart to draw the Pie chart.
+		        pie.Draw();
+				
+				
+				$("#generatedTime").html(json["servers"][0]["dt"]);
 				var display = $("<div/>");
-				$.each(json,function(i,data){
+				$.each(json.servers,function(i,data){
 					
 					//alert(data.name)
 					var userDisplay = newUserTpl.clone();
@@ -87,8 +101,9 @@ function drawType(){
 function checkHash(){
 	hash = hash = jQuery.makeArray(getHash().split("\/"));
 	hash[0] = hash[0].replace("#","")
+	var ymax = 5;
 	if(hash[0] == "")hash[0]="type";
-	$.getJSON("ajax/getData.php",{"name":hash[0]},function(data){
+	$.getJSON("ajax/getData.php",{"name":hash[0],"raw":false},function(data){
 			var values = new Array();
 			var values2 = new Array();
 			var lable = new Array();
@@ -112,29 +127,36 @@ function checkHash(){
 						});
 						cnt++;
 					}
-				})
+				});
+				if(data.month){
+					cnt = 0;
+					lable2 = data["month"]["title"];
+					$.each(data.month,function(k,item){
+						if(k!="title"){
+							cnt2 = 0;
+							key[cnt] = k;
+							$.each(item,function(k2,item2){
+								values2[cnt][cnt2] = item2.pop;
+								cnt2++;
+							});
+							cnt++;
+						}
+					});
+				}
 			}else{
 				key = [hash[0]];
 				$.each(data,function(k,item){
 					values[k] = item.pop;
 					lable[k] = item.hour;
-				})	
-			}
-			if(data.month){
-				cnt = 0;
-				lable2 = data["month"]["title"];
-				$.each(data.month,function(k,item){
-					if(k!="title"){
-						cnt2 = 0;
-						key[cnt] = k;
-						$.each(item,function(k2,item2){
-							values2[cnt][cnt2] = item2.pop;
-							cnt2++;
-						});
-						cnt++;
-					}
 				});
+				if(data.month){
+					$.each(data.month,function(k,item){
+						values2[k] = item.pop;
+						lable2[k] = item.hour;
+					});
+				}
 			}
+
 			
 		    var line1 = new RGraph.Line('graph', values);
 		    line1.Set('chart.key',key);
@@ -142,7 +164,7 @@ function checkHash(){
             line1.Set('chart.linewidth', 2);
             line1.Set('chart.gutter.left', 35);
             line1.Set('chart.ymin', 0);
-            line1.Set('chart.ymax', 5);
+            line1.Set('chart.ymax', ymax);
             line1.Set('chart.scale.decimals',0);
             line1.Set('chart.hmargin', 1);
             if (!document.all || RGraph.isIE9up()) {
@@ -151,14 +173,13 @@ function checkHash(){
             line1.Set('chart.tickmarks', null);
             line1.Set('chart.units.post', '');
             line1.Set('chart.text.color',"white");
-            line1.Set('chart.colors', ['#FBB50D', 'green','blue', 'black']);
+            line1.Set('chart.colors', ['#FBB50D', 'green','blue', '#111111']);
             line1.Set('chart.background.grid.autofit', true);
             line1.Set('chart.background.grid.autofit.numhlines', 10);
             line1.Set('chart.curvy', true);
             line1.Set('chart.curvy.factor', 0.5); // This is the default
             line1.Set('chart.animation.unfold.initial',0);
             line1.Set('chart.labels',lable);
-            line1.Set('chart.title',hash[0]);
             
             if (RGraph.isOld()) {
                 line1.Draw();
@@ -172,7 +193,7 @@ function checkHash(){
             line2.Set('chart.linewidth', 2);
             line2.Set('chart.gutter.left', 35);
             line2.Set('chart.ymin', 0);
-            line2.Set('chart.ymax', 5);
+            line2.Set('chart.ymax', ymax);
             line2.Set('chart.scale.decimals',0);
             line2.Set('chart.hmargin', 1);
             if (!document.all || RGraph.isIE9up()) {
@@ -181,14 +202,13 @@ function checkHash(){
             line2.Set('chart.tickmarks', null);
             line2.Set('chart.units.post', '');
             line2.Set('chart.text.color',"white");
-            line2.Set('chart.colors', ['#FBB50D', 'green','blue', 'black']);
+            line2.Set('chart.colors', ['#FBB50D', 'green','blue', '#111111']);
             line2.Set('chart.background.grid.autofit', true);
             line2.Set('chart.background.grid.autofit.numhlines', 10);
             line2.Set('chart.curvy', true);
             line2.Set('chart.curvy.factor', 0.5); // This is the default
             line2.Set('chart.animation.unfold.initial',0);
             line2.Set('chart.labels',lable2);
-            line2.Set('chart.title',hash[0]);
             
             if (RGraph.isOld()) {
                 line2.Draw();

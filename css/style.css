@@ -8,7 +8,7 @@ body, html {
 	min-height:100%;
 	background-color:#000;
 }
-a,a:visited{
+a,a:visited,.colorText{
 	color:#42F2FF;
 	text-decoration: none;
 }
@@ -19,23 +19,23 @@ a,a:visited{
 	border:2px solid #25A2C3
 }
 .border-bottom-B-1, .border-bottom-Main-1 {
-	border-bottom:1px solid #85aaa5
+	border-bottom:1px solid #25A2C3
 }
 .border-left-B-1, .border-left-Main-1 {
-	border-left:1px solid #85aaa5
+	border-left:1px solid #25A2C3
 }
 .border-right-B-1, .border-right-Main-1 {
-	border-right:1px solid #85aaa5
+	border-right:1px solid #25A2C3
 }
 .ticket-divider {
 	border-right:4px solid #ccc
 }
 .border-sides-B-1, .border-sides-Main-1 {
-	border-left:1px solid #85aaa5
-	border-right:1px solid #85aaa5
+	border-left:1px solid #25A2C3;
+	border-right:1px solid #25A2C3;
 }
 .border-top-B-1, .border-top-Main-1 {
-	border-top:1px solid #85aaa5
+	border-top:1px solid #25A2C3
 }
 .color-B-1, .colorMain-1 {
 	background: rgb(112,176,224); /* old browsers */
