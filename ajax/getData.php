@@ -52,9 +52,7 @@
 							$serverTemp[$k]["hour"] = $i["hour"];
 							$serverTemp[$k]["pop"] += $i["pop"];
 						}
-						
-						
-						echo $sql;						
+						//echo $sql;						
 					}else{
 						$sql = "SELECT avg( population ) as pop ,hour( dt ) as hour FROM status WHERE (DAY(dt) = '".date("j")."' AND MONTH(dt) = '".date("m")."' AND YEAR(dt) = '".date("Y")."') AND server_id IN(SELECT id FROM server WHERE type='".$t."') GROUP BY  hour( dt ) ORDER BY dt;";
 						$status["day"][$t] = $db->Query($sql,false,"assoc_array");
@@ -87,7 +85,7 @@
 				}
 			
 				$status = $db->Query("SELECT avg( population ) as pop,hour( dt ) as hour FROM status WHERE server_id='".$serverId."' AND ( DAY(dt) = '".date("j")."' AND MONTH(dt) = '".date("m")."' AND YEAR(dt) = '".date("Y")."') GROUP BY server_id,hour( dt ) ;",false,"assoc_array");
-				echo $db->Lastsql;
+				//echo $db->Lastsql;
 				$status["month"] = $db->Query("SELECT avg( population ) as pop,DAY( dt ) as hour FROM status WHERE server_id='".$serverId."' AND ( MONTH(dt) = '".date("m")."' AND YEAR(dt) = '".date("Y")."') GROUP BY server_id,DAY( dt ) ;",false,"assoc_array");					
 				
 			}

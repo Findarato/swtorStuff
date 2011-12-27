@@ -103,7 +103,7 @@ function checkHash(){
 	hash[0] = hash[0].replace("#","")
 	var ymax = 5;
 	if(hash[0] == "")hash[0]="type";
-	$.getJSON("ajax/getData.php",{"name":hash[0],"raw":false},function(data){
+	$.getJSON("ajax/getData.php",{"name":hash[0]},function(data){
 			var values = new Array();
 			var values2 = new Array();
 			var lable = new Array();
