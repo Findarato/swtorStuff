@@ -1,1 +1,28 @@
-yeah I will put some stuff here eventually
+ok here are the database definitions
+
+--
+-- Table structure for table `server`
+--
+
+CREATE TABLE IF NOT EXISTS `server` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` text NOT NULL,
+  `type` enum('PVP','PvE','RP-PvP','RP-PvE') NOT NULL,
+  `timezone` text NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `type` (`type`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=216 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `status`
+--
+
+CREATE TABLE IF NOT EXISTS `status` (
+  `dt` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `status` enum('UP','DOWN') NOT NULL,
+  `server_id` int(11) NOT NULL,
+  `population` int(11) NOT NULL,
+  KEY `dt` (`dt`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
