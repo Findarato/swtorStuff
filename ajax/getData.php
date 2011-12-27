@@ -31,16 +31,32 @@
 			if($_GET["name"] == "type"){
 				$types = array("PvE","PVP","RP-PvE","RP-PvP");
 				$status = array();
+				$status["day"] = array();
 				$hours = array();
+				$days = array();
 				foreach ($types as $t){
 					$ids = array_implode($db->Query("SELECT id FROM server WHERE type='".$t."'",true,"row"));
 					$sql = "SELECT avg( population ) as pop ,hour( dt ) as hour FROM status WHERE (DAY(dt) = '".date("j")."' AND MONTH(dt) = '".date("m")."' AND YEAR(dt) = '".date("Y")."') AND server_id IN(".join(",",$ids).") GROUP BY  hour( dt ) ORDER BY dt;";
-					$status[$t] = $db->Query($sql,false,"assoc_array");
+					$status["day"][$t] = $db->Query($sql,false,"assoc_array");
 				}
-				foreach ($status["PvE"] as $st){
+				
+				foreach ($status["day"]["PvE"] as $st){
+					$days[] = $st["hour"];
+				}
+				$status["day"]["title"] = $days;
+				
+				$status["month"] = array();
+				foreach ($types as $t){
+					$ids = array_implode($db->Query("SELECT id FROM server WHERE type='".$t."'",true,"row"));
+					$sql = "SELECT avg( population ) as pop ,DAY( dt ) as hour FROM status WHERE (MONTH(dt) = '".date("m")."' AND YEAR(dt) = '".date("Y")."') AND server_id IN(".join(",",$ids).") GROUP BY  DAY( dt ) ORDER BY dt;";
+					$status["month"][$t] = $db->Query($sql,false,"assoc_array");
+				}
+				foreach ($status["month"]["PvE"] as $st){
 					$hours[] = $st["hour"];
+					
 				}
-				$status["hours"] = $hours;
+				$status["month"]["title"] = $hours;
+								
 			}else{
 				if(is_int($_GET["name"])){
 					$serverId = $_GET["name"];	

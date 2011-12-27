@@ -79,22 +79,31 @@ function setHash(htbs) {
     }
 }
 
+function drawType(){
+	
+}
+
+
 function checkHash(){
 	hash = hash = jQuery.makeArray(getHash().split("\/"));
 	hash[0] = hash[0].replace("#","")
 	if(hash[0] == "")hash[0]="type";
 	$.getJSON("ajax/getData.php",{"name":hash[0]},function(data){
 			var values = new Array();
+			var values2 = new Array();
 			var lable = new Array();
+			var lable2 = new Array();
 			var key = "";
 			if(hash[0] == "type"){
+				drawType();
 				var cnt = 0;
 				var cnt2 = 0;
 				key = [];
 				values = [[0,1],[0,2],[0,3],[0,4],[0,5]];
-				lable = data.hours;
-				$.each(data,function(k,item){
-					if(k!="hours"){
+				values2 = [[0,1],[0,2],[0,3],[0,4],[0,5]];
+				lable = data["day"]["title"];
+				$.each(data.day,function(k,item){
+					if(k!="title"){
 						cnt2 = 0;
 						key[cnt] = k;
 						$.each(item,function(k2,item2){
@@ -111,6 +120,22 @@ function checkHash(){
 					lable[k] = item.hour;
 				})	
 			}
+			if(data.month){
+				cnt = 0;
+				lable2 = data["month"]["title"];
+				$.each(data.month,function(k,item){
+					if(k!="title"){
+						cnt2 = 0;
+						key[cnt] = k;
+						$.each(item,function(k2,item2){
+							values2[cnt][cnt2] = item2.pop;
+							cnt2++;
+						});
+						cnt++;
+					}
+				});
+			}
+			
 		    var line1 = new RGraph.Line('graph', values);
 		    line1.Set('chart.key',key);
             line1.Set('chart.background.grid', false);
@@ -140,6 +165,40 @@ function checkHash(){
             } else {
                 RGraph.Effects.Line.jQuery.Trace(line1);
             }
+            
+            var line2 = new RGraph.Line('graphMonth', values2);
+		    line2.Set('chart.key',key);
+            line2.Set('chart.background.grid', false);
+            line2.Set('chart.linewidth', 2);
+            line2.Set('chart.gutter.left', 35);
+            line2.Set('chart.ymin', 0);
+            line2.Set('chart.ymax', 5);
+            line2.Set('chart.scale.decimals',0);
+            line2.Set('chart.hmargin', 1);
+            if (!document.all || RGraph.isIE9up()) {
+                line2.Set('chart.shadow', true);
+            }
+            line2.Set('chart.tickmarks', null);
+            line2.Set('chart.units.post', '');
+            line2.Set('chart.text.color',"white");
+            line2.Set('chart.colors', ['#FBB50D', 'green','blue', 'black']);
+            line2.Set('chart.background.grid.autofit', true);
+            line2.Set('chart.background.grid.autofit.numhlines', 10);
+            line2.Set('chart.curvy', true);
+            line2.Set('chart.curvy.factor', 0.5); // This is the default
+            line2.Set('chart.animation.unfold.initial',0);
+            line2.Set('chart.labels',lable2);
+            line2.Set('chart.title',hash[0]);
+            
+            if (RGraph.isOld()) {
+                line2.Draw();
+            } else {
+                RGraph.Effects.Line.jQuery.Trace(line2);
+            }
+            
+            
+            
+            
 	});
 
 	if(hash[1]){
